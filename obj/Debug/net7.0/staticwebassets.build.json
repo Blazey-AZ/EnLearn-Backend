@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "RZeddJg4WmYFb5PLQS8HrUXm4XghjB2T01CwAAZvfA0=",
+  "Source": "enlearn",
+  "BasePath": "_content/enlearn",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "enlearn\\wwwroot",
+      "Source": "enlearn",
+      "ContentRoot": "C:\\Users\\avita\\enlearnnew\\enlearn\\wwwroot\\",
+      "BasePath": "_content/enlearn",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
