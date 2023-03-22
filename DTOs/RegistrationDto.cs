@@ -22,6 +22,8 @@ namespace enlearn.DTOs
 
         [Required] 
         public string Password { get; set; }
+        [Required] 
+        public string Email { get; set; }
         
         [Required] 
         public string ParentContact { get; set; }

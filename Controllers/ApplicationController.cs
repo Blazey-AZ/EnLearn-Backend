@@ -26,10 +26,7 @@ namespace enlearn.Controllers
 
         {
 
-            // district districtById = await _context.tblcap_district.FirstOrDefaultAsync(district => district.districtname == personaldetailDto.DistrictName);
-
-            // if (districtById == null)
-            //     return BadRequest();
+        
 
             if (await ApplicationExists(applicationDto.ApplicationNo)) return BadRequest("Application details already exists");
 
@@ -222,8 +219,7 @@ namespace enlearn.Controllers
             var applistdetails = (from a in _context.tblcap_application
                                   join stud in _context.tblcap_basicdetails on a.studentid equals stud.studentid
 
-                                  //   join rel in _context.tblcap_religion on p.religionid equals rel.religionid
-                                  //   join st in _context.tblcap_state on p.stateid equals st.stateid
+                                  
                                   select new ApplicationDto()
                                   {
                                       ApplicationNo = a.applicationno,
@@ -258,9 +254,251 @@ namespace enlearn.Controllers
 
 
         }
+         [HttpGet("enrollreport")]
+        public async Task<ActionResult> EnrollReport()
+        {
+            int count = await _context.tblcap_application
+            .Where(s => s.applicationstatus == "Enroll")
+            .CountAsync();
 
+            var applistdetails = await (from a in _context.tblcap_application
+                                  join stud in _context.tblcap_basicdetails on a.studentid equals stud.studentid
+                                
+                                 
+                                  select new ApplicationDto()
+                                  {
+                                      ApplicationNo = a.applicationno,
+                                      StudentID = stud.studentid,
+                                      StudentName = stud.studentname,
+                                      FirstOption = a.firstoption,
+                                      SecondOption = a.secondoption,
+                                      ThirdOption = a.thirdoption,
+                                      TenthBoard = a.tenthboard,
+                                      TenthInstitution = a.tenthinstitution,
+                                      TenthPlace = a.tenthplace,
+                                      TenthState = a.tenthstate,
+                                      TenthYear = a.tenthyear,
+                                      TenthMark = a.tenthmark,
+                                      TenthNoOfAttempts = a.tenthnoofattempts,
+                                      TwelfthBoard = a.twelfthboard,
+                                      TwelfthInstitution = a.twelfthinstitution,
+                                      TwelfthPlace = a.twelfthplace,
+                                      TwelfthState = a.twelfthstate,
+                                      TwelfthYear = a.twelfthyear,
+                                      TwelfthMark = a.twelfthmark,
+                                      TwelfthNoOfAttempts = a.twelfthnoofattempts,
+                                      Date = a.date,
+                                      ApplicationStatus = a.applicationstatus
 
+                                  }).Where(x => x.ApplicationStatus == "Enroll").ToListAsync();
 
+            return Ok(applistdetails);  
+        }
+
+        [HttpGet("rejectreport")]
+        public async Task<ActionResult> RejectReport()
+        {
+            int count = await _context.tblcap_application
+            .Where(s => s.applicationstatus == "Reject")
+            .CountAsync();
+
+            var applistdetails = await (from a in _context.tblcap_application
+                                  join stud in _context.tblcap_basicdetails on a.studentid equals stud.studentid
+                                
+                                 
+                                  select new ApplicationDto()
+                                  {
+                                      ApplicationNo = a.applicationno,
+                                      StudentID = stud.studentid,
+                                      StudentName = stud.studentname,
+                                      FirstOption = a.firstoption,
+                                      SecondOption = a.secondoption,
+                                      ThirdOption = a.thirdoption,
+                                      TenthBoard = a.tenthboard,
+                                      TenthInstitution = a.tenthinstitution,
+                                      TenthPlace = a.tenthplace,
+                                      TenthState = a.tenthstate,
+                                      TenthYear = a.tenthyear,
+                                      TenthMark = a.tenthmark,
+                                      TenthNoOfAttempts = a.tenthnoofattempts,
+                                      TwelfthBoard = a.twelfthboard,
+                                      TwelfthInstitution = a.twelfthinstitution,
+                                      TwelfthPlace = a.twelfthplace,
+                                      TwelfthState = a.twelfthstate,
+                                      TwelfthYear = a.twelfthyear,
+                                      TwelfthMark = a.twelfthmark,
+                                      TwelfthNoOfAttempts = a.twelfthnoofattempts,
+                                      Date = a.date,
+                                      ApplicationStatus = a.applicationstatus
+
+                                  }).Where(x => x.ApplicationStatus == "Reject").ToListAsync();
+
+            return Ok(applistdetails);  
+        }
+
+        [HttpGet("passreport")]
+        public async Task<ActionResult> PassReport()
+        {
+            int count = await _context.tblcap_application
+            .Where(s => s.applicationstatus == "Pass")
+            .CountAsync();
+
+            var applistdetails = await (from a in _context.tblcap_application
+                                  join stud in _context.tblcap_basicdetails on a.studentid equals stud.studentid
+                                
+                                 
+                                  select new ApplicationDto()
+                                  {
+                                      ApplicationNo = a.applicationno,
+                                      StudentID = stud.studentid,
+                                      StudentName = stud.studentname,
+                                      FirstOption = a.firstoption,
+                                      SecondOption = a.secondoption,
+                                      ThirdOption = a.thirdoption,
+                                      TenthBoard = a.tenthboard,
+                                      TenthInstitution = a.tenthinstitution,
+                                      TenthPlace = a.tenthplace,
+                                      TenthState = a.tenthstate,
+                                      TenthYear = a.tenthyear,
+                                      TenthMark = a.tenthmark,
+                                      TenthNoOfAttempts = a.tenthnoofattempts,
+                                      TwelfthBoard = a.twelfthboard,
+                                      TwelfthInstitution = a.twelfthinstitution,
+                                      TwelfthPlace = a.twelfthplace,
+                                      TwelfthState = a.twelfthstate,
+                                      TwelfthYear = a.twelfthyear,
+                                      TwelfthMark = a.twelfthmark,
+                                      TwelfthNoOfAttempts = a.twelfthnoofattempts,
+                                      Date = a.date,
+                                      ApplicationStatus = a.applicationstatus
+
+                                  }).Where(x => x.ApplicationStatus == "Pass").ToListAsync();
+
+            return Ok(applistdetails);  
+        }
+
+[HttpGet("failreport")]
+        public async Task<ActionResult> FailReport()
+        {
+            int count = await _context.tblcap_application
+            .Where(s => s.applicationstatus == "Fail")
+            .CountAsync();
+
+            var applistdetails = await (from a in _context.tblcap_application
+                                  join stud in _context.tblcap_basicdetails on a.studentid equals stud.studentid
+                                
+                                 
+                                  select new ApplicationDto()
+                                  {
+                                      ApplicationNo = a.applicationno,
+                                      StudentID = stud.studentid,
+                                      StudentName = stud.studentname,
+                                      FirstOption = a.firstoption,
+                                      SecondOption = a.secondoption,
+                                      ThirdOption = a.thirdoption,
+                                      TenthBoard = a.tenthboard,
+                                      TenthInstitution = a.tenthinstitution,
+                                      TenthPlace = a.tenthplace,
+                                      TenthState = a.tenthstate,
+                                      TenthYear = a.tenthyear,
+                                      TenthMark = a.tenthmark,
+                                      TenthNoOfAttempts = a.tenthnoofattempts,
+                                      TwelfthBoard = a.twelfthboard,
+                                      TwelfthInstitution = a.twelfthinstitution,
+                                      TwelfthPlace = a.twelfthplace,
+                                      TwelfthState = a.twelfthstate,
+                                      TwelfthYear = a.twelfthyear,
+                                      TwelfthMark = a.twelfthmark,
+                                      TwelfthNoOfAttempts = a.twelfthnoofattempts,
+                                      Date = a.date,
+                                      ApplicationStatus = a.applicationstatus
+
+                                  }).Where(x => x.ApplicationStatus == "Fail").ToListAsync();
+
+            return Ok(applistdetails);  
+        }
+
+        [HttpGet("verifyreport")]
+        public async Task<ActionResult> VerifyReport()
+        {
+            int count = await _context.tblcap_application
+            .Where(s => s.applicationstatus == "Verified")
+            .CountAsync();
+
+            var applistdetails = await (from a in _context.tblcap_application
+                                  join stud in _context.tblcap_basicdetails on a.studentid equals stud.studentid
+                                
+                                 
+                                  select new ApplicationDto()
+                                  {
+                                      ApplicationNo = a.applicationno,
+                                      StudentID = stud.studentid,
+                                      StudentName = stud.studentname,
+                                      FirstOption = a.firstoption,
+                                      SecondOption = a.secondoption,
+                                      ThirdOption = a.thirdoption,
+                                      TenthBoard = a.tenthboard,
+                                      TenthInstitution = a.tenthinstitution,
+                                      TenthPlace = a.tenthplace,
+                                      TenthState = a.tenthstate,
+                                      TenthYear = a.tenthyear,
+                                      TenthMark = a.tenthmark,
+                                      TenthNoOfAttempts = a.tenthnoofattempts,
+                                      TwelfthBoard = a.twelfthboard,
+                                      TwelfthInstitution = a.twelfthinstitution,
+                                      TwelfthPlace = a.twelfthplace,
+                                      TwelfthState = a.twelfthstate,
+                                      TwelfthYear = a.twelfthyear,
+                                      TwelfthMark = a.twelfthmark,
+                                      TwelfthNoOfAttempts = a.twelfthnoofattempts,
+                                      Date = a.date,
+                                      ApplicationStatus = a.applicationstatus
+
+                                  }).Where(x => x.ApplicationStatus == "Verified").ToListAsync();
+
+            return Ok(applistdetails);  
+        }
+
+[HttpGet("unverifyreport")]
+        public async Task<ActionResult> UnverifyReport()
+        {
+            int count = await _context.tblcap_application
+            .Where(s => s.applicationstatus == "Unverified")
+            .CountAsync();
+
+            var applistdetails = await (from a in _context.tblcap_application
+                                  join stud in _context.tblcap_basicdetails on a.studentid equals stud.studentid
+                                
+                                 
+                                  select new ApplicationDto()
+                                  {
+                                      ApplicationNo = a.applicationno,
+                                      StudentID = stud.studentid,
+                                      StudentName = stud.studentname,
+                                      FirstOption = a.firstoption,
+                                      SecondOption = a.secondoption,
+                                      ThirdOption = a.thirdoption,
+                                      TenthBoard = a.tenthboard,
+                                      TenthInstitution = a.tenthinstitution,
+                                      TenthPlace = a.tenthplace,
+                                      TenthState = a.tenthstate,
+                                      TenthYear = a.tenthyear,
+                                      TenthMark = a.tenthmark,
+                                      TenthNoOfAttempts = a.tenthnoofattempts,
+                                      TwelfthBoard = a.twelfthboard,
+                                      TwelfthInstitution = a.twelfthinstitution,
+                                      TwelfthPlace = a.twelfthplace,
+                                      TwelfthState = a.twelfthstate,
+                                      TwelfthYear = a.twelfthyear,
+                                      TwelfthMark = a.twelfthmark,
+                                      TwelfthNoOfAttempts = a.twelfthnoofattempts,
+                                      Date = a.date,
+                                      ApplicationStatus = a.applicationstatus
+
+                                  }).Where(x => x.ApplicationStatus == "Unverified").ToListAsync();
+
+            return Ok(applistdetails);  
+        }
 
     }
 

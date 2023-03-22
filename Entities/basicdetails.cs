@@ -18,6 +18,8 @@ namespace enlearn.Entities
         [MaxLength(10)] public string gender { get; set; } 
         [MaxLength(40)] public string username { get; set; } 
         [MaxLength(40)] public string password { get; set; } 
+        [MaxLength(40)] public string email { get; set; } 
+
         [MaxLength(10)] public string parentcontact { get; set; } 
 
         [MaxLength(10)] public string status { get; set;}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using backend.Smtp;
 using enlearn.Data;
 using enlearn.DTOs;
 using enlearn.Entities;
@@ -36,11 +37,16 @@ namespace enlearn.Controllers
                 gender = registrationDto.Gender,
                 username = registrationDto.UserName,
                 password = registrationDto.Password,
+                email = registrationDto.Email,
                 parentcontact = registrationDto.ParentContact
             };
 
             _context.tblcap_basicdetails.Add(student);
             await _context.SaveChangesAsync();
+
+            string html = $"<h1>You've been enrolled! Here are your Credentials:</h1> <h2>Username : </h2>{student.username}<br><h2>Password : </h2>{student.password}";
+            await  MailerManager.SendMail(student.email, "You've been enrolled", html);
+            
 
             return registrationDto;
         }
